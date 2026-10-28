@@ -6,15 +6,38 @@ services:
     build: ./instamart
     ports:
       - "1111:80"
+    volumes:
+      - instamartVol:/usr/share/nginx/html:ro
+    networks:
+      - instamartNw
 
   delivery_svc:
     container_name: deliverycont
     build: ./delivery
     ports:
       - "2222:80"
-
+    volumes:
+      - deliveryVol:/usr/share/nginx/html:ro
+    networks:
+      - deliveryNw
   dinein_svc:
     container_name: dineincont
     build: ./dinein
     ports:
       - "3333:80"
+    volumes:
+      - dineinVol:/usr/share/nginx/html:ro
+    networks:
+      - dineinNw
+volumes:
+  instamartVol:
+  deliveryVol:
+  dineinVol:
+
+networks:
+  instamartNw:
+    driver: bridge
+  deliveryNw:
+    driver: bridge
+  dineinNw:
+    driver: bridge
